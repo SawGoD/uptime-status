@@ -1,36 +1,35 @@
 window.Config = {
+    // Название сайта
+    SiteName: 'Nerjel',
 
-  // 显示标题
-  SiteName: 'Public Status',
+    // UptimeRobot Api Keys
+    // Поддерживает Monitor-Specific и Read-Only
+    ApiKeys: [
+        'm800673107-e0c2ebe9751e77346e8481a0', // Read-Only ключ
+        'm800673135-585a7f95c55b61c43bc818b4', // Read-Only ключ
+        'm800911467-ae3c9c2dc001bd9dc4a6bd1a', // Read-Only ключ
+        // 'm800679644-4ee3480057a34ce157103cba', // Read-Only ключ
+    ],
 
-  // UptimeRobot Api Keys
-  // 支持 Monitor-Specific 和 Read-Only
-  ApiKeys: [
-    'm784488775-dd1ad84b209c05f8e185c33e',
-    'm784490063-7b5da437e7f1e0d67613714d',
-    'm784497419-de55aa09902ccb3ab22d548a',
-    'm784496436-71a4bf7b1e3bdf7756be131b',
-  ],
+    // Количество дней в логах
+    CountDays: 45,
 
-  // 日志天数
-  CountDays: 90,
+    // Показывать ли ссылки на проверяемые сайты
+    ShowLink: false,
 
-  // 是否显示检测站点的链接
-  ShowLink: true,
-
-  // 导航栏菜单
-  Navi: [
-    {
-      text: 'Homepage',
-      url: 'https://status.org.cn/'
-    },
-    {
-      text: 'GitHub',
-      url: 'https://github.com/yb/uptime-status'
-    },
-    {
-      text: 'Blog',
-      url: 'https://abo.xyz/'
-    },
-  ],
-};
+    // Меню навигации
+    Navi: [
+        {
+            text: 'support',
+            url: 'https://t.me/nerjel_help',
+        },
+        // {
+        //     text: 'GitHub',
+        //     url: 'https://github.com/yb/uptime-status',
+        // },
+        // {
+        //     text: 'Блог',
+        //     url: 'https://abo.xyz/',
+        // },
+    ],
+}

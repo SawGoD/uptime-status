@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  uptime-status:
+    build: 
+      context: .
+    image: uptime-status
+    container_name: uptime-status
+    restart: unless-stopped
+    ports:
+      - "34481:80"
+    environment:
+      - NODE_ENV=production
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - uptime-network
+
+networks:
+  uptime-network:
+    driver: bridge 
