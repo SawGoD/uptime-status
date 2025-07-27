@@ -290,6 +290,21 @@
   overflow: visible;
 }
 
+// Адаптивная высота таймлайна
+@media (max-width: 768px) {
+  .timeline {
+    height: 32px;
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    height: 28px;
+    padding: 6px 0;
+  }
+}
+
 .timeline-graph {
   position: absolute;
   top: 0;
@@ -303,6 +318,19 @@
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
   animation: drawLine 0.5s ease-out forwards;
+}
+
+// Адаптивная толщина линии графика
+@media (max-width: 768px) {
+  .timeline-segment {
+    stroke-width: 1.5 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-segment {
+    stroke-width: 1 !important;
+  }
 }
 
 @keyframes drawLine {
@@ -322,6 +350,24 @@
   z-index: 2;
   border: 3px solid #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+// Адаптивные размеры для разных экранов
+@media (max-width: 768px) {
+  .timeline-point {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-point {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
 }
 .timeline-point-animate {
   opacity: 0;
@@ -401,6 +447,21 @@
   box-shadow: none;
   width: 16px;
   height: 16px;
+}
+
+// Адаптивные размеры для серых точек
+@media (max-width: 768px) {
+  .timeline-point.none {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-point.none {
+    width: 10px;
+    height: 10px;
+  }
 }
 
 .timeline-point.latest-ok {

@@ -13,7 +13,7 @@ window.Config = {
     ],
 
     // Количество дней в логах
-    CountDays: 24,
+    CountDays: 20,
 
     // Показывать ли ссылки на проверяемые сайты
     ShowLink: false,
