@@ -484,8 +484,58 @@
   padding: 0.5rem 0;
 }
 
+// Пинг в блоке статистики
+.ping-stats-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+.ping-stats-value {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ping-stats-value:hover {
+  transform: scale(1.05);
+}
+
+.ping-stats-value.ping-excellent {
+  color: #22c55e;
+}
+
+.ping-stats-value.ping-good {
+  color: #16a34a;
+}
+
+.ping-stats-value.ping-ok {
+  color: #f59e0b;
+}
+
+.ping-stats-value.ping-poor {
+  color: #ef4444;
+}
+
+.ping-stats-value.ping-fail {
+  color: #dc2626;
+}
+
+.ping-stats-value.ping-loading {
+  color: var(--my-text-content-color);
+  font-style: italic;
+}
+
 @media (min-width: 768px) {
   .stats-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  // На ПК ping-статистика тоже должна быть горизонтальной
+  .ping-stats-item {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

@@ -12,11 +12,27 @@ window.Config = {
         // 'm800679644-4ee3480057a34ce157103cba', // Read-Only ключ
     ],
 
+    // URL для проверки пинга (по порядку соответствуют API ключам)
+    PingUrls: [
+        'http://itachi.nj0.ru', // Для первого API ключа
+        'http://hidan.nj0.ru', // Для второго API ключа
+        'http://yugito.nj0.ru', // Для третьего API ключа
+        'http://lando.nj0.ru', // Для четвертого API ключа
+    ],
+
     // Количество дней в логах
     CountDays: 20,
 
     // Показывать ли ссылки на проверяемые сайты
     ShowLink: false,
+
+    // Настройки пинга
+    PingSettings: {
+        enabled: true,
+        timeout: 3000,
+        attempts: 3,
+        interval: 15000, // Обновление каждые 15 сек
+    },
 
     // Меню навигации
     Navi: [

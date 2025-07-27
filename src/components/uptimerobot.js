@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { getCountryCodeFromServerName, getCountryName } from '../common/country-flags'
 import { formatDuration, formatNumber } from '../common/helper'
+import { formatPing, measurePing } from '../common/ping'
 import { GetMonitors } from '../common/uptimerobot'
 import { useLanguage } from '../contexts/LanguageContext'
 import Link from './link'
 
-const UptimeRobot = ({ apikey }) => {
+const UptimeRobot = ({ apikey, pingUrl }) => {
     const { t } = useLanguage()
 
     const status = {
@@ -18,6 +19,25 @@ const UptimeRobot = ({ apikey }) => {
     const { CountDays, ShowLink } = window.Config
     const [monitors, setMonitors] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [pingResult, setPingResult] = useState(null)
+    const [pingLoading, setPingLoading] = useState(false)
+    const pingIntervalRef = useRef(null)
+
+    // Функция для обновления пинга
+    const updatePing = async () => {
+        if (!pingUrl || !window.Config?.PingSettings?.enabled) return
+
+        setPingLoading(true)
+        try {
+            const result = await measurePing(pingUrl, window.Config.PingSettings.attempts || 3)
+            setPingResult(result)
+        } catch (error) {
+            console.error('Ошибка измерения пинга:', error)
+            setPingResult(null)
+        } finally {
+            setPingLoading(false)
+        }
+    }
 
     useEffect(() => {
         // Debouncing - задержка 500мс перед запросом
@@ -31,6 +51,24 @@ const UptimeRobot = ({ apikey }) => {
 
         return () => clearTimeout(timeoutId)
     }, [apikey, CountDays])
+
+    // Эффект для пинга
+    useEffect(() => {
+        if (pingUrl && window.Config?.PingSettings?.enabled) {
+            // Сразу измеряем пинг
+            updatePing()
+
+            // Устанавливаем интервал
+            const interval = window.Config.PingSettings.interval || 15000
+            pingIntervalRef.current = setInterval(updatePing, interval)
+        }
+
+        return () => {
+            if (pingIntervalRef.current) {
+                clearInterval(pingIntervalRef.current)
+            }
+        }
+    }, [pingUrl])
 
     if (loading) {
         return (
@@ -229,6 +267,29 @@ const UptimeRobot = ({ apikey }) => {
                             </span>
                         </div>
                     </div>
+
+                    {/* Показываем пинг в блоке статистики, если URL настроен */}
+                    {pingUrl && (
+                        <div className="col-md-6 ping-stats-col">
+                            <div className="stats-item ping-stats-item">
+                                <span className="my-text-content">{t('pingStatus')}</span>
+                                {(() => {
+                                    const formatted = formatPing(pingResult)
+                                    const tooltipText = pingResult ? formatted.details : 'Измерение пинга...'
+                                    return (
+                                        <span
+                                            className={`my-text-heading fw-semibold ping-stats-value ${formatted.class} ${
+                                                pingLoading ? 'ping-loading' : ''
+                                            }`}
+                                            data-tip={tooltipText}
+                                        >
+                                            📡 {pingLoading ? '...' : formatted.text}
+                                        </span>
+                                    )
+                                })()}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <ReactTooltip className="tooltip" place="top" type="dark" effect="solid" multiline={true} delayShow={200} delayHide={100} />

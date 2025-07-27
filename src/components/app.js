@@ -27,9 +27,9 @@ const AppContent = () => {
                 </div>
 
                 <div id="uptime" className="row g-3 mb-5">
-                    {apikeys.map((key) => (
+                    {apikeys.map((key, index) => (
                         <div key={key} className="col-12">
-                            <UptimeRobot apikey={key} />
+                            <UptimeRobot apikey={key} pingUrl={window.Config?.PingUrls?.[index]} />
                         </div>
                     ))}
                 </div>

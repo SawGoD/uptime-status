@@ -44,6 +44,9 @@ export const MESSAGES = {
         updateDescription: 'A new version of the application is available. Update now to get the latest improvements.',
         updateNow: 'Update Now',
         later: 'Later',
+
+        // Пинг
+        pingStatus: 'Current delay',
     },
     ru: {
         // Общие
@@ -89,6 +92,9 @@ export const MESSAGES = {
         updateDescription: 'Доступна новая версия приложения. Обновите сейчас, чтобы получить последние улучшения.',
         updateNow: 'Обновить сейчас',
         later: 'Позже',
+
+        // Пинг
+        pingStatus: 'Текущая задержка',
     },
 }
 
