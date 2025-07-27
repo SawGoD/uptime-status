@@ -8,6 +8,10 @@ import UptimeRobot from './uptimerobot'
 const AppContent = () => {
     const { t } = useLanguage()
     const apikeys = useMemo(() => {
+        if (!window.Config) {
+            console.error('window.Config не найден. Убедитесь, что config.js загружен.')
+            return []
+        }
         const { ApiKeys } = window.Config
         if (Array.isArray(ApiKeys)) return ApiKeys
         if (typeof ApiKeys === 'string') return [ApiKeys]

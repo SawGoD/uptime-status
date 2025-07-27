@@ -87,28 +87,123 @@ const UptimeRobot = ({ apikey }) => {
 
                 <div className="timeline-container mb-3">
                     <div className="timeline">
-                        {site.daily
-                            .slice()
-                            .reverse()
-                            .map((data, index) => {
+                        {(() => {
+                            // Создаем точки для SVG линии-графика
+                            const svgPoints = site.daily
+                                .slice()
+                                .reverse()
+                                .map((data, index) => {
+                                    let yPercent = 50 // По умолчанию по центру
+                                    if (data.uptime >= 100) {
+                                        yPercent = 35 // Выше центра для OK
+                                    } else if (data.uptime <= 0 && data.down.times === 0) {
+                                        yPercent = 50 // По центру для нет данных
+                                    } else {
+                                        yPercent = 65 // Ниже центра для DOWN
+                                    }
+                                    const xPercent = (index / (site.daily.length - 1)) * 100
+                                    return {
+                                        x: xPercent,
+                                        y: yPercent,
+                                        status: data.uptime >= 100 ? 'ok' : data.uptime <= 0 && data.down.times === 0 ? 'none' : 'down',
+                                    }
+                                })
+
+                            // Создаем сегменты линии с разными цветами
+                            const segments = svgPoints.slice(0, -1).map((point, index) => {
+                                const nextPoint = svgPoints[index + 1]
+
+                                // Определяем цвет сегмента на основе статусов точек
+                                let segmentColor = 'var(--my-alpha-gray-color)'
+                                if (point.status === 'ok' && nextPoint.status === 'ok') {
+                                    segmentColor = '#1aad3a'
+                                } else if (point.status === 'down' || nextPoint.status === 'down') {
+                                    segmentColor = '#ea4e43'
+                                } else if (point.status === 'ok' || nextPoint.status === 'ok') {
+                                    segmentColor = '#1aad3a'
+                                }
+
+                                // Задержка для появления сегментов
+                                const segmentDelay = index * 50 + 100 // Линии появляются после точек
+
+                                return (
+                                    <path
+                                        key={index}
+                                        className="timeline-segment"
+                                        d={`M ${point.x} ${point.y} L ${nextPoint.x} ${nextPoint.y}`}
+                                        fill="none"
+                                        stroke={segmentColor}
+                                        strokeWidth="2"
+                                        strokeLinejoin="round"
+                                        strokeLinecap="round"
+                                        style={{ animationDelay: `${segmentDelay}ms` }}
+                                    />
+                                )
+                            })
+
+                            return (
+                                <svg className="timeline-graph" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    {segments}
+                                </svg>
+                            )
+                        })()}
+                        {(() => {
+                            // Находим индекс самой правой точки с данными
+                            const dataPoints = site.daily.slice().reverse()
+                            let latestDataIndex = -1
+                            for (let i = dataPoints.length - 1; i >= 0; i--) {
+                                if (!(dataPoints[i].uptime <= 0 && dataPoints[i].down.times === 0)) {
+                                    latestDataIndex = i
+                                    break
+                                }
+                            }
+
+                            return dataPoints.map((data, index) => {
                                 let statusClass = ''
                                 let text = data.date.format('DD.MM.YYYY ')
+                                let topPosition = '50%' // По умолчанию по центру
 
                                 if (data.uptime >= 100) {
                                     statusClass = 'ok'
+                                    topPosition = '35%' // Выше центра для OK
                                     text += `${t('availability')} ${formatNumber(data.uptime)}%`
                                 } else if (data.uptime <= 0 && data.down.times === 0) {
                                     statusClass = 'none'
+                                    topPosition = '50%' // По центру для нет данных
                                     text += t('noData')
                                 } else {
                                     statusClass = 'down'
+                                    topPosition = '65%' // Ниже центра для DOWN
                                     text += `Сбоев ${data.down.times}, суммарно ${formatDuration(data.down.duration)}, ${t(
                                         'availability'
                                     ).toLowerCase()} ${formatNumber(data.uptime)}%`
                                 }
 
-                                return <div key={index} className={`timeline-item ${statusClass}`} data-tip={text} title={text} />
-                            })}
+                                // Добавляем свечение для самой правой точки с данными
+                                if (index === latestDataIndex && statusClass !== 'none') {
+                                    statusClass += ` latest-${statusClass}`
+                                }
+
+                                const dayPosition = (index / (site.daily.length - 1)) * 100
+                                // Случайная задержка от 50мс до 200мс для каждой точки
+                                const randomDelay = 50 + Math.random() * 150
+                                const animationDelay = index * 30 + randomDelay // Базовая задержка + случайная
+
+                                return (
+                                    <div
+                                        key={index}
+                                        className={`timeline-point ${statusClass} timeline-point-animate`}
+                                        style={{
+                                            left: `${dayPosition}%`,
+                                            top: topPosition,
+                                            animationDelay: `${animationDelay}ms`,
+                                        }}
+                                        data-tip={text}
+                                        title={text}
+                                    />
+                                )
+                            })
+                        })()}
                     </div>
                     <div className="timeline-labels d-flex justify-content-between mt-2">
                         <small className="my-text-content">{t('daysAgo', { days: CountDays })}</small>
@@ -137,7 +232,7 @@ const UptimeRobot = ({ apikey }) => {
                     </div>
                 </div>
 
-                <ReactTooltip className="tooltip" place="top" type="dark" effect="solid" />
+                <ReactTooltip className="tooltip" place="top" type="dark" effect="solid" multiline={true} delayShow={200} delayHide={100} />
             </div>
         )
     })

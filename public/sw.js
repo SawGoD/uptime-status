@@ -1,4 +1,4 @@
-const CACHE_NAME = 'uptime-status-v2.0.1.1752084531934'
+const CACHE_NAME = 'uptime-status-v2.0.1.1753557287951'
 const CONFIG_FILE = '/config.js'
 
 // Устанавливаем Service Worker
