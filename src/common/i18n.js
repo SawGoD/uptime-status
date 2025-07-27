@@ -39,14 +39,11 @@ export const MESSAGES = {
         // Футер
         footerText: 'Based on UptimeRobot API, check frequency 5 minutes',
 
-        // Обновления
-        updateAvailable: 'Update Available',
-        updateDescription: 'A new version of the application is available. Update now to get the latest improvements.',
-        updateNow: 'Update Now',
-        later: 'Later',
-
         // Пинг
         pingStatus: 'Current delay',
+        pingAvg: 'AVG',
+        pingMinMax: 'Min/Max',
+        pingMeasuring: 'Measuring ping...',
     },
     ru: {
         // Общие
@@ -87,14 +84,11 @@ export const MESSAGES = {
         // Футер
         footerText: 'Сделано на основе API UptimeRobot, частота проверки 5 минут',
 
-        // Обновления
-        updateAvailable: 'Доступно обновление',
-        updateDescription: 'Доступна новая версия приложения. Обновите сейчас, чтобы получить последние улучшения.',
-        updateNow: 'Обновить сейчас',
-        later: 'Позже',
-
         // Пинг
         pingStatus: 'Текущая задержка',
+        pingAvg: 'СР',
+        pingMinMax: 'Мин/Макс',
+        pingMeasuring: 'Измерение пинга...',
     },
 }
 

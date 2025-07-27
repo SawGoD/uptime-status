@@ -1,6 +1,6 @@
 window.Config = {
     // Название сайта
-    SiteName: 'Nerjel',
+    SiteName: 'Nerjel Status',
 
     // UptimeRobot Api Keys
     // Поддерживает Monitor-Specific и Read-Only
@@ -14,14 +14,14 @@ window.Config = {
 
     // URL для проверки пинга (по порядку соответствуют API ключам)
     PingUrls: [
-        'http://itachi.nj0.ru', // Для первого API ключа
-        'http://hidan.nj0.ru', // Для второго API ключа
-        'http://yugito.nj0.ru', // Для третьего API ключа
-        'http://lando.nj0.ru', // Для четвертого API ключа
+        'http://itachi.nj0.ru:60231', // Для первого API ключа
+        'http://hidan.nj0.ru:60231', // Для второго API ключа
+        'http://yugito.nj0.ru:60231', // Для третьего API ключа
+        'http://lando.nj0.ru:60231', // Для четвертого API ключа
     ],
 
     // Количество дней в логах
-    CountDays: 20,
+    CountDays: 16,
 
     // Показывать ли ссылки на проверяемые сайты
     ShowLink: false,

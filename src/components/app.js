@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { LanguageProvider, useLanguage } from '../contexts/LanguageContext'
 import Header from './header'
 import Link from './link'
-import UpdateNotifier from './update-notifier'
 import UptimeRobot from './uptimerobot'
 
 const AppContent = () => {
@@ -40,7 +39,6 @@ const AppContent = () => {
                     </p>
                 </div>
             </div>
-            <UpdateNotifier />
         </>
     )
 }

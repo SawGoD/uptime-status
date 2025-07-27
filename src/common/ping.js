@@ -1,7 +1,7 @@
 // Измерение пинга серверов
 const PING_TIMEOUT = 3000
 
-// Пинг с замером времени
+// Быстрый пинг через fetch с фолбэком на Image
 export const measurePing = async (url, attempts = 3) => {
     const times = []
 
@@ -11,14 +11,48 @@ export const measurePing = async (url, attempts = 3) => {
         const start = performance.now()
 
         try {
-            await fetch(url, {
-                method: 'HEAD',
-                mode: 'no-cors',
-                cache: 'no-store',
-                signal: controller.signal,
-            })
-            const time = performance.now() - start
+            // Сначала пробуем быстрый fetch
+            try {
+                await fetch(url, {
+                    method: 'HEAD',
+                    mode: 'no-cors',
+                    cache: 'no-store',
+                    signal: controller.signal,
+                })
+            } catch (fetchError) {
+                // Если fetch не работает, фолбэк на Image (медленнее, но работает)
+                await new Promise((resolve, reject) => {
+                    const img = new Image()
 
+                    const cleanup = () => {
+                        img.onload = null
+                        img.onerror = null
+                        img.src = '' // Останавливаем загрузку
+                    }
+
+                    const timeoutId = setTimeout(() => {
+                        cleanup()
+                        reject(new Error('Image timeout'))
+                    }, 2000) // Короткий таймаут для Image
+
+                    img.onload = img.onerror = () => {
+                        clearTimeout(timeoutId)
+                        cleanup()
+                        resolve()
+                    }
+
+                    controller.signal.addEventListener('abort', () => {
+                        clearTimeout(timeoutId)
+                        cleanup()
+                        reject(new Error('Aborted'))
+                    })
+
+                    // Минимальный URL для быстрой проверки
+                    img.src = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now()
+                })
+            }
+
+            const time = performance.now() - start
             if (i > 0) times.push(Math.round(time)) // пропускаем первый
         } catch {
             // Игнорируем ошибки

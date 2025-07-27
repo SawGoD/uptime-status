@@ -275,7 +275,10 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
                                 <span className="my-text-content">{t('pingStatus')}</span>
                                 {(() => {
                                     const formatted = formatPing(pingResult)
-                                    const tooltipText = pingResult ? formatted.details : 'Измерение пинга...'
+                                    // Формируем tooltip без строки Details с переводами
+                                    const tooltipText = pingResult
+                                        ? `${t('pingAvg')}: ${pingResult.avg}ms\n${t('pingMinMax')}: ${pingResult.min}/${pingResult.max}ms`
+                                        : t('pingMeasuring')
                                     return (
                                         <span
                                             className={`my-text-heading fw-semibold ping-stats-value ${formatted.class} ${
