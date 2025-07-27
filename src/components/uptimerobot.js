@@ -199,7 +199,6 @@ const UptimeRobot = ({ apikey }) => {
                                             animationDelay: `${animationDelay}ms`,
                                         }}
                                         data-tip={text}
-                                        title={text}
                                     />
                                 )
                             })
