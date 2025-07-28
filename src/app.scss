@@ -317,7 +317,7 @@
 .timeline-segment {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  animation: drawLine 0.8s ease-out forwards;
+  animation: drawLine 1.2s ease-out forwards;
 }
 
 // Базовые толщины линий для разных статусов
@@ -326,11 +326,11 @@
 }
 
 .timeline-segment.segment-ok {
-  stroke-width: 2.5;
+  stroke-width: 2.8;
 }
 
 .timeline-segment.segment-down {
-  stroke-width: 3.5;
+  stroke-width: 2.7;
 }
 
 // Адаптивная толщина линии графика для мобильных
@@ -340,11 +340,11 @@
   }
   
   .timeline-segment.segment-ok {
-    stroke-width: 3 !important;
+    stroke-width: 3.3 !important;
   }
   
   .timeline-segment.segment-down {
-    stroke-width: 4 !important;
+    stroke-width: 3.2 !important;
   }
 }
 
@@ -354,11 +354,11 @@
   }
   
   .timeline-segment.segment-ok {
-    stroke-width: 3.5 !important;
+    stroke-width: 3.8 !important;
   }
   
   .timeline-segment.segment-down {
-    stroke-width: 4.5 !important;
+    stroke-width: 3.7 !important;
   }
 }
 
@@ -401,7 +401,7 @@
 .timeline-point-animate {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.3);
-  animation: timelinePointAppear 0.6s ease-out forwards;
+  animation: timelinePointAppear 0.8s ease-out forwards;
 }
 
 @keyframes timelinePointAppear {

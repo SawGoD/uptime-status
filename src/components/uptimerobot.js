@@ -151,27 +151,31 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
                             const segments = svgPoints.slice(0, -1).map((point, index) => {
                                 const nextPoint = svgPoints[index + 1]
 
-                                // Определяем цвет сегмента на основе статусов точек
+                                // Определяем цвет и класс сегмента на основе статусов точек
                                 let segmentColor = 'var(--my-alpha-gray-color)'
+                                let segmentClass = 'timeline-segment segment-none'
+
                                 if (point.status === 'ok' && nextPoint.status === 'ok') {
                                     segmentColor = '#1aad3a'
+                                    segmentClass = 'timeline-segment segment-ok'
                                 } else if (point.status === 'down' || nextPoint.status === 'down') {
                                     segmentColor = '#ea4e43'
+                                    segmentClass = 'timeline-segment segment-down'
                                 } else if (point.status === 'ok' || nextPoint.status === 'ok') {
                                     segmentColor = '#1aad3a'
+                                    segmentClass = 'timeline-segment segment-ok'
                                 }
 
-                                // Задержка для появления сегментов
-                                const segmentDelay = index * 50 + 100 // Линии появляются после точек
+                                // Линии появляются раньше точек
+                                const segmentDelay = index * 20
 
                                 return (
                                     <path
                                         key={index}
-                                        className="timeline-segment"
+                                        className={segmentClass}
                                         d={`M ${point.x} ${point.y} L ${nextPoint.x} ${nextPoint.y}`}
                                         fill="none"
                                         stroke={segmentColor}
-                                        strokeWidth="2"
                                         strokeLinejoin="round"
                                         strokeLinecap="round"
                                         style={{ animationDelay: `${segmentDelay}ms` }}
@@ -223,9 +227,12 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
                                 }
 
                                 const dayPosition = (index / (site.daily.length - 1)) * 100
-                                // Случайная задержка от 50мс до 200мс для каждой точки
-                                const randomDelay = 50 + Math.random() * 150
-                                const animationDelay = index * 30 + randomDelay // Базовая задержка + случайная
+                                // Более случайная анимация: разбиваем на блоки и добавляем случайность
+                                const blockSize = 5
+                                const blockIndex = Math.floor(index / blockSize)
+                                const blockRandomDelay = Math.random() * 100
+                                const itemRandomDelay = Math.random() * 80
+                                const animationDelay = blockIndex * 150 + blockRandomDelay + itemRandomDelay + 200 // Точки появляются после линий
 
                                 return (
                                     <div
