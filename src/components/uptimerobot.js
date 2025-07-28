@@ -277,7 +277,9 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
                                     const formatted = formatPing(pingResult)
                                     // Формируем tooltip без строки Details с переводами
                                     const tooltipText = pingResult
-                                        ? `${t('pingAvg')}: ${pingResult.avg}ms\n${t('pingMinMax')}: ${pingResult.min}/${pingResult.max}ms`
+                                        ? `${t('pingAvg')}: ${pingResult.avg}ms\n${t('pingMinMax')}: ${pingResult.min}/${
+                                              pingResult.max
+                                          }ms\n\n${t('pingNote')}`
                                         : t('pingMeasuring')
                                     return (
                                         <span

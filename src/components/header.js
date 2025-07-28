@@ -19,8 +19,8 @@ const Header = () => {
             <div className="container my-container px-3">
                 <div className="navbar-brand">
                     <a href="https://t.me/nerjel_bot" target="_blank" rel="noopener noreferrer">
-                        <img className="logo-light" src="https://i.ibb.co/LXy1ZQP4/f9786912926a.png" alt="Logo" height="70" />
-                        <img className="logo-dark" src="https://i.ibb.co/RpmstKzc/3eaf2eb68025.png" alt="Logo" height="70" />
+                        <img className="logo-light" src="https://i.ibb.co/1G0VYLwL/695bf8450615.png" alt="Logo" height="70" />
+                        <img className="logo-dark" src="https://i.ibb.co/pCWLhd2/7fff0d1aad97.png" alt="Logo" height="70" />
                     </a>
                 </div>
 

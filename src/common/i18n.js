@@ -44,6 +44,7 @@ export const MESSAGES = {
         pingAvg: 'AVG',
         pingMinMax: 'Min/Max',
         pingMeasuring: 'Measuring ping...',
+        pingNote: 'Approximate value.<br>Actual connection may be faster.',
     },
     ru: {
         // Общие
@@ -89,6 +90,7 @@ export const MESSAGES = {
         pingAvg: 'СР',
         pingMinMax: 'Мин/Макс',
         pingMeasuring: 'Измерение пинга...',
+        pingNote: 'Примерное значение.<br>При фактическом подключении может быть меньше.',
     },
 }
 

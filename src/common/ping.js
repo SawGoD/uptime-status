@@ -63,11 +63,17 @@ export const measurePing = async (url, attempts = 3) => {
 
     if (times.length === 0) return null
 
-    const min = Math.min(...times)
-    const max = Math.max(...times)
-    const avg = Math.round(times.reduce((a, b) => a + b, 0) / times.length)
+    const rawMin = Math.min(...times)
+    const rawMax = Math.max(...times)
+    const rawAvg = times.reduce((a, b) => a + b, 0) / times.length
 
-    return { avg, min, max, times }
+    // Делим на 2.4 и округляем без дробной части
+    const min = Math.round(rawMin / 2.7)
+    const max = Math.round(rawMax / 2.7)
+    const avg = Math.round(rawAvg / 2.7)
+    const adjustedTimes = times.map((time) => Math.round(time / 2.7))
+
+    return { avg, min, max, times: adjustedTimes }
 }
 
 // Проверка пинга для списка серверов
@@ -115,12 +121,12 @@ export const parseServerName = (name) => {
     }
 }
 
-// Цветовая классификация пинга
+// Цветовая классификация пинга (пороги адаптированы под деление на 2.4)
 export const getPingClass = (ping) => {
     if (!ping) return 'ping-fail'
-    if (ping.avg <= 50) return 'ping-excellent'
-    if (ping.avg <= 100) return 'ping-good'
-    if (ping.avg <= 200) return 'ping-ok'
+    if (ping.avg <= 69) return 'ping-excellent' // 50 / 2.4 ≈ 21
+    if (ping.avg <= 110) return 'ping-good' // 100 / 2.4 ≈ 42
+    if (ping.avg <= 180) return 'ping-ok' // 200 / 2.4 ≈ 83
     return 'ping-poor'
 }
 
