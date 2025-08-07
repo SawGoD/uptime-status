@@ -42,6 +42,7 @@
   fill: currentColor;
   width: 1em;
   height: 1em;
+
 }
 
 .dropdown-toggle::after {
@@ -81,6 +82,7 @@
     margin-bottom: 1rem;
   }
 }
+
 
 .my-nav-link {
   display: flex;
@@ -284,6 +286,7 @@
 }
 
 .timeline {
+
   position: relative;
   height: 40px;
   padding: 12px 0;
@@ -499,6 +502,7 @@
 
 .timeline-point.latest-down {
   box-shadow: 0 0 15px rgba(234, 78, 67, 0.6), 0 2px 6px rgba(0, 0, 0, 0.2);
+
 }
 
 .timeline-labels {
@@ -512,6 +516,7 @@
   gap: 0.25rem;
   padding: 0.5rem 0;
 }
+
 
 // Пинг в блоке статистики
 .ping-stats-item {
@@ -556,11 +561,13 @@
   font-style: italic;
 }
 
+
 @media (min-width: 768px) {
   .stats-item {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
   }
   
   // На ПК ping-статистика тоже должна быть горизонтальной
@@ -696,6 +703,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   
   .navbar-brand img {
     height: 70px !important;

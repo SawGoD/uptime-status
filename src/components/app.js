@@ -2,15 +2,18 @@ import { useMemo } from 'react'
 import { LanguageProvider, useLanguage } from '../contexts/LanguageContext'
 import Header from './header'
 import Link from './link'
+
 import UptimeRobot from './uptimerobot'
 
 const AppContent = () => {
     const { t } = useLanguage()
     const apikeys = useMemo(() => {
+
         if (!window.Config) {
             console.error('window.Config не найден. Убедитесь, что config.js загружен.')
             return []
         }
+
         const { ApiKeys } = window.Config
         if (Array.isArray(ApiKeys)) return ApiKeys
         if (typeof ApiKeys === 'string') return [ApiKeys]
@@ -26,9 +29,11 @@ const AppContent = () => {
                 </div>
 
                 <div id="uptime" className="row g-3 mb-5">
+
                     {apikeys.map((key, index) => (
                         <div key={key} className="col-12">
                             <UptimeRobot apikey={key} pingUrl={window.Config?.PingUrls?.[index]} />
+
                         </div>
                     ))}
                 </div>
@@ -39,6 +44,7 @@ const AppContent = () => {
                     </p>
                 </div>
             </div>
+
         </>
     )
 }

@@ -1,13 +1,17 @@
+
 import { useEffect, useRef, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { getCountryCodeFromServerName, getCountryName } from '../common/country-flags'
 import { formatDuration, formatNumber } from '../common/helper'
 import { formatPing, measurePing } from '../common/ping'
+
 import { GetMonitors } from '../common/uptimerobot'
 import { useLanguage } from '../contexts/LanguageContext'
 import Link from './link'
 
+
 const UptimeRobot = ({ apikey, pingUrl }) => {
+
     const { t } = useLanguage()
 
     const status = {
@@ -19,6 +23,7 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
     const { CountDays, ShowLink } = window.Config
     const [monitors, setMonitors] = useState(null)
     const [loading, setLoading] = useState(true)
+
     const [pingResult, setPingResult] = useState(null)
     const [pingLoading, setPingLoading] = useState(false)
     const pingIntervalRef = useRef(null)
@@ -39,6 +44,7 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
         }
     }
 
+
     useEffect(() => {
         // Debouncing - задержка 500мс перед запросом
         const timeoutId = setTimeout(() => {
@@ -51,6 +57,7 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
 
         return () => clearTimeout(timeoutId)
     }, [apikey, CountDays])
+
 
     // Эффект для пинга
     useEffect(() => {
@@ -69,6 +76,7 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
             }
         }
     }, [pingUrl])
+
 
     if (loading) {
         return (
@@ -125,6 +133,7 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
 
                 <div className="timeline-container mb-3">
                     <div className="timeline">
+
                         {(() => {
                             // Создаем точки для SVG линии-графика
                             const svgPoints = site.daily
@@ -216,10 +225,12 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
                                 } else {
                                     statusClass = 'down'
                                     topPosition = '65%' // Ниже центра для DOWN
+
                                     text += `Сбоев ${data.down.times}, суммарно ${formatDuration(data.down.duration)}, ${t(
                                         'availability'
                                     ).toLowerCase()} ${formatNumber(data.uptime)}%`
                                 }
+
 
                                 // Добавляем свечение для самой правой точки с данными
                                 if (index === latestDataIndex && statusClass !== 'none') {
@@ -248,6 +259,7 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
                                 )
                             })
                         })()}
+
                     </div>
                     <div className="timeline-labels d-flex justify-content-between mt-2">
                         <small className="my-text-content">{t('daysAgo', { days: CountDays })}</small>
@@ -274,6 +286,7 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
                             </span>
                         </div>
                     </div>
+
 
                     {/* Показываем пинг в блоке статистики, если URL настроен */}
                     {pingUrl && (
@@ -305,6 +318,7 @@ const UptimeRobot = ({ apikey, pingUrl }) => {
                 </div>
 
                 <ReactTooltip className="tooltip" place="top" type="dark" effect="solid" multiline={true} delayShow={200} delayHide={100} />
+
             </div>
         )
     })

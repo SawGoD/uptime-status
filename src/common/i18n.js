@@ -39,12 +39,14 @@ export const MESSAGES = {
         // Футер
         footerText: 'Based on UptimeRobot API, check frequency 5 minutes',
 
+
         // Пинг
         pingStatus: 'Current delay',
         pingAvg: 'AVG',
         pingMinMax: 'Min/Max',
         pingMeasuring: 'Measuring ping...',
         pingNote: 'Approximate value.<br>Actual connection may be faster.',
+
     },
     ru: {
         // Общие
@@ -85,12 +87,14 @@ export const MESSAGES = {
         // Футер
         footerText: 'Сделано на основе API UptimeRobot, частота проверки 5 минут',
 
+
         // Пинг
         pingStatus: 'Текущая задержка',
         pingAvg: 'СР',
         pingMinMax: 'Мин/Макс',
         pingMeasuring: 'Измерение пинга...',
         pingNote: 'Примерное значение.<br>При фактическом подключении может быть меньше.',
+
     },
 }
 

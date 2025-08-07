@@ -1,11 +1,14 @@
 window.Config = {
     // Название сайта
+
     SiteName: 'Nerjel Status',
+
 
     // UptimeRobot Api Keys
     // Поддерживает Monitor-Specific и Read-Only
     ApiKeys: [
         'm800673107-e0c2ebe9751e77346e8481a0', // Read-Only ключ
+
         'm801120143-c69f4fa632313e64662baf31', // Read-Only ключ
         'm800673135-585a7f95c55b61c43bc818b4', // Read-Only ключ
         'm800911467-ae3c9c2dc001bd9dc4a6bd1a', // Read-Only ключ
@@ -35,6 +38,7 @@ window.Config = {
         attempts: 3,
         interval: 15000, // Обновление каждые 15 сек
     },
+
 
     // Меню навигации
     Navi: [
