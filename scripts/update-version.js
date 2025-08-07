@@ -13,8 +13,10 @@ const versionString = `${version}.${timestamp}`
 const indexPath = path.join(__dirname, '../public/index.html')
 let indexContent = fs.readFileSync(indexPath, 'utf8')
 
-// Заменяем версию в config.js
-indexContent = indexContent.replace(/src="\.\/config\.js\?v=[^"]*"/, `src="./config.js?v=${versionString}"`)
+
+// Заменяем версию в config.js (поддерживаем разные пути)
+indexContent = indexContent.replace(/src="[^"]*config\.js(\?v=[^"]*)?"/g, `src="/uptime/config.js?v=${versionString}"`)
+
 
 fs.writeFileSync(indexPath, indexContent)
 

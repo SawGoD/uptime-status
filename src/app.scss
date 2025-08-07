@@ -42,6 +42,7 @@
   fill: currentColor;
   width: 1em;
   height: 1em;
+
 }
 
 .dropdown-toggle::after {
@@ -81,6 +82,7 @@
     margin-bottom: 1rem;
   }
 }
+
 
 .my-nav-link {
   display: flex;
@@ -284,37 +286,223 @@
 }
 
 .timeline {
-  display: flex;
-  gap: 2px;
+
+  position: relative;
   height: 40px;
-  padding: 4px;
-  background-color: var(--my-dark-gray-color);
-  border-radius: var(--bs-border-radius);
-  overflow: hidden;
+  padding: 12px 0;
+  overflow: visible;
 }
 
-.timeline-item {
-  flex: 1;
-  min-width: 3px;
-  border-radius: 2px;
+// Адаптивная высота таймлайна
+@media (max-width: 768px) {
+  .timeline {
+    height: 32px;
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    height: 28px;
+    padding: 6px 0;
+  }
+}
+
+.timeline-graph {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.timeline-segment {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawLine 1.2s ease-out forwards;
+}
+
+// Базовые толщины линий для разных статусов
+.timeline-segment.segment-none {
+  stroke-width: 1;
+}
+
+.timeline-segment.segment-ok {
+  stroke-width: 2.8;
+}
+
+.timeline-segment.segment-down {
+  stroke-width: 2.7;
+}
+
+// Адаптивная толщина линии графика для мобильных
+@media (max-width: 768px) {
+  .timeline-segment.segment-none {
+    stroke-width: 2 !important;
+  }
+  
+  .timeline-segment.segment-ok {
+    stroke-width: 3.3 !important;
+  }
+  
+  .timeline-segment.segment-down {
+    stroke-width: 3.2 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-segment.segment-none {
+    stroke-width: 2.5 !important;
+  }
+  
+  .timeline-segment.segment-ok {
+    stroke-width: 3.8 !important;
+  }
+  
+  .timeline-segment.segment-down {
+    stroke-width: 3.7 !important;
+  }
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.timeline-point {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.timeline-item:hover {
-  transform: scaleY(1.1);
+// Адаптивные размеры для разных экранов
+@media (max-width: 768px) {
+  .timeline-point {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+  }
 }
 
-.timeline-item.ok {
+@media (max-width: 480px) {
+  .timeline-point {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+.timeline-point-animate {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.3);
+  animation: timelinePointAppear 0.8s ease-out forwards;
+}
+
+@keyframes timelinePointAppear {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.timeline-point:hover {
+  z-index: 10;
+}
+
+.timeline-point:hover::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pointPing 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.timeline-point.ok:hover::before {
+  background-color: #1aad3a;
+  box-shadow: 0 0 15px rgba(26, 173, 58, 0.4);
+}
+
+.timeline-point.down:hover::before {
+  background-color: #ea4e43;
+  box-shadow: 0 0 15px rgba(234, 78, 67, 0.4);
+}
+
+.timeline-point.none:hover::before {
+  background-color: var(--my-alpha-gray-color);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pointPing {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.3;
+  }
+}
+
+.timeline-point.ok {
   background-color: #1aad3a;
 }
 
-.timeline-item.down {
+.timeline-point.down {
   background-color: #ea4e43;
 }
 
-.timeline-item.none {
+.timeline-point.none {
   background-color: var(--my-alpha-gray-color);
+  border: none;
+  box-shadow: none;
+  width: 16px;
+  height: 16px;
+}
+
+// Адаптивные размеры для серых точек
+@media (max-width: 768px) {
+  .timeline-point.none {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-point.none {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.timeline-point.latest-ok {
+  box-shadow: 0 0 15px rgba(26, 173, 58, 0.6), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-point.latest-down {
+  box-shadow: 0 0 15px rgba(234, 78, 67, 0.6), 0 2px 6px rgba(0, 0, 0, 0.2);
+
 }
 
 .timeline-labels {
@@ -329,8 +517,61 @@
   padding: 0.5rem 0;
 }
 
+
+// Пинг в блоке статистики
+.ping-stats-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+.ping-stats-value {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ping-stats-value:hover {
+  transform: scale(1.05);
+}
+
+.ping-stats-value.ping-excellent {
+  color: #22c55e;
+}
+
+.ping-stats-value.ping-good {
+  color: #16a34a;
+}
+
+.ping-stats-value.ping-ok {
+  color: #f59e0b;
+}
+
+.ping-stats-value.ping-poor {
+  color: #ef4444;
+}
+
+.ping-stats-value.ping-fail {
+  color: #dc2626;
+}
+
+.ping-stats-value.ping-loading {
+  color: var(--my-text-content-color);
+  font-style: italic;
+}
+
+
 @media (min-width: 768px) {
   .stats-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+  
+  // На ПК ping-статистика тоже должна быть горизонтальной
+  .ping-stats-item {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -345,6 +586,70 @@
 // Tooltip стили
 .tooltip {
   font-size: 0.875rem;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  font-family: inherit !important;
+  line-height: 1.4 !important;
+  padding: 8px 12px !important;
+  max-width: 250px !important;
+}
+
+// Стилизация ReactTooltip
+.__react_component_tooltip {
+  border-radius: 8px !important;
+  background-color: var(--bs-dark) !important;
+  color: var(--bs-light) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  font-family: inherit !important;
+  font-size: 0.875rem !important;
+  line-height: 1.4 !important;
+  padding: 8px 12px !important;
+  max-width: 250px !important;
+  opacity: 0.95 !important;
+  z-index: 1000 !important;
+}
+
+.__react_component_tooltip.type-dark {
+  background-color: var(--bs-dark) !important;
+  color: var(--bs-light) !important;
+}
+
+.__react_component_tooltip.type-dark.place-top:after {
+  border-top-color: var(--bs-dark) !important;
+}
+
+.__react_component_tooltip.type-dark.place-bottom:after {
+  border-bottom-color: var(--bs-dark) !important;
+}
+
+.__react_component_tooltip.type-dark.place-left:after {
+  border-left-color: var(--bs-dark) !important;
+}
+
+.__react_component_tooltip.type-dark.place-right:after {
+  border-right-color: var(--bs-dark) !important;
+}
+
+// Поддержка темной темы для tooltip
+[data-bs-theme="dark"] .__react_component_tooltip {
+  background-color: rgba(248, 249, 250, 0.95) !important;
+  color: var(--bs-dark) !important;
+}
+
+[data-bs-theme="dark"] .__react_component_tooltip.type-dark.place-top:after {
+  border-top-color: rgba(248, 249, 250, 0.95) !important;
+}
+
+[data-bs-theme="dark"] .__react_component_tooltip.type-dark.place-bottom:after {
+  border-bottom-color: rgba(248, 249, 250, 0.95) !important;
+}
+
+[data-bs-theme="dark"] .__react_component_tooltip.type-dark.place-left:after {
+  border-left-color: rgba(248, 249, 250, 0.95) !important;
+}
+
+[data-bs-theme="dark"] .__react_component_tooltip.type-dark.place-right:after {
+  border-right-color: rgba(248, 249, 250, 0.95) !important;
 }
 
 // Логотипы для разных тем
@@ -398,6 +703,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   
   .navbar-brand img {
     height: 70px !important;

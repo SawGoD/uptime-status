@@ -7,11 +7,14 @@ WORKDIR /app
 # Копируем package.json и package-lock.json
 COPY package*.json ./
 
-# Устанавливаем зависимости
-RUN npm ci --only=production
+# Устанавливаем зависимости (включая dev для скриптов)
+RUN npm ci
 
 # Копируем исходный код
 COPY . .
+
+# Обновляем версию для кэш-бастинга
+RUN node scripts/update-version.js
 
 # Устанавливаем публичный путь для React
 ENV PUBLIC_URL=/uptime
