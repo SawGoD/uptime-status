@@ -11,3 +11,4 @@ coverage/
 npm-debug.log
 yarn-error.log
 *.tsbuildinfo
+ping_ref

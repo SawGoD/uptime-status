@@ -1,0 +1,41 @@
+# Кеширование статических ресурсов
+<IfModule mod_expires.c>
+    ExpiresActive on
+    
+    # HTML документы - не кешировать
+    ExpiresByType text/html "access plus 0 seconds"
+    
+    # JavaScript и CSS файлы с версионированием - кешировать долго
+    <FilesMatch "\.(js|css)\?v=">
+        ExpiresDefault "access plus 1 year"
+    </FilesMatch>
+    
+    # Остальные JS/CSS - кешировать на час
+    ExpiresByType application/javascript "access plus 1 hour"
+    ExpiresByType text/css "access plus 1 hour"
+    
+    # Изображения - кешировать на неделю
+    ExpiresByType image/jpg "access plus 1 week"
+    ExpiresByType image/jpeg "access plus 1 week"
+    ExpiresByType image/gif "access plus 1 week"
+    ExpiresByType image/png "access plus 1 week"
+    ExpiresByType image/svg+xml "access plus 1 week"
+    ExpiresByType image/webp "access plus 1 week"
+</IfModule>
+
+# Настройка заголовков кеша
+<IfModule mod_headers.c>
+    # Для HTML - всегда проверять актуальность
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # Для config.js - всегда проверять актуальность  
+    <FilesMatch "config\.js$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache" 
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule> 

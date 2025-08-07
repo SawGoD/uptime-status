@@ -1,173 +1,703 @@
-$primary-color: #3bd672;
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
-* {
-  margin: 0;
-  box-sizing: border-box;
+:root {
+  --bs-body-font-family: "Rubik", sans-serif;
 }
 
-body {
-  font-family: sans-serif;
-  font-size: 14px;
-  line-height: 1;
-  color: #131a26;
+[data-bs-theme='light'] {
+  --bs-body-bg: #ead3e7;
+
+  --my-gray-color: #f4e2ed;
+  --my-dark-gray-color: #eaeaea;
+  --my-alpha-gray-color: rgba(50, 50, 50, .75);
+  --my-alpha-dark-gray-color: rgba(0, 0, 0, .15);
+  --my-emphasis-focus-shadow-rgb: 0, 0, 0;
+
+  --my-heading-color: rgb(30, 25, 20);
+  --my-content-color: rgba(0, 0, 0, .65);
+  --my-dropdown-bg: #fff;
+  --my-dropdown-link-hover-bg: rgba(55, 53, 47, .05);
+  --my-modal-bg: #fff;
+  --my-primary-color: rgb(255, 105, 180);
 }
 
-a {
+[data-bs-theme='dark'] {
+  --bs-body-bg: #1c161c;
+
+  --my-gray-color: #2b272b;
+  --my-dark-gray-color: #1c1c1c;
+  --my-alpha-gray-color: rgba(255, 255, 255, .5);
+  --my-alpha-dark-gray-color: rgba(255, 255, 255, .15);
+  --my-emphasis-focus-shadow-rgb: 255, 255, 255;
+
+  --my-heading-color: rgb(225, 225, 225);
+  --my-content-color: rgba(255, 255, 255, .55);
+  --my-dropdown-bg: #2c2c2c;
+  --my-dropdown-link-hover-bg: rgba(255, 255, 255, .05);
+  --my-modal-bg: #232323;
+  --my-primary-color: rgb(255, 105, 180);
+}
+
+.bi {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+.dropdown-toggle::after {
+  mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M8.7 13.7c.4-.4 1.1-.4 1.5 0l6 6 6-6c.4-.4 1.1-.4 1.5 0s.4 1.1 0 1.5L17 21.9c-.4.4-1.1.4-1.5 0l-6.7-6.7c-.5-.6-.5-1.1-.1-1.5'/%3E%3C/svg%3E") 50% 50% / cover no-repeat;
+  float: right;
+  width: 1em;
+  height: 1.25em;
+  margin-right: -3px;
+  margin-left: 3px;
+  background-color: currentColor;
+}
+
+.my-container {
+  max-width: 1024px;
+}
+
+.my-navbar {
+  --bs-navbar-nav-link-padding-x: .75rem;
+}
+
+.my-navbar .navbar-toggler {
+  --bs-navbar-toggler-border-color: transparent;
+  --bs-navbar-toggler-padding-x: 0;
+  --bs-navbar-toggler-padding-y: 0;
+}
+
+@media (max-width: 576px) {
+  .my-navbar .navbar-nav {
+    --bs-nav-link-padding-y: .75rem;
+  }
+
+  .my-navbar .nav-item .nav-link {
+    border-top: 1px solid var(--my-alpha-dark-gray-color);
+  }
+
+  .my-navbar .dropdown-menu {
+    margin-bottom: 1rem;
+  }
+}
+
+.my-nav-link {
+  display: flex;
+  align-items: center;
+  color: var(--my-heading-color);
   text-decoration: none;
-  color: inherit;
 }
 
-#app {
-  .container {
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
+.my-nav-link:focus-visible {
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: 0 0 0 .25rem var(--my-alpha-gray-color);
 }
 
-#header {
-  background-color: #121a26;
-  padding: 30px 0 60px 0;
-  color: $primary-color;
-  width: 100%;
-  .container {
+.my-nav-link .bi {
+  margin-right: .5rem;
+  font-size: 1.25rem;
+}
+
+.my-nav-link-text {
+  margin-right: auto;
+}
+
+.my-nav-link-icon {
+  margin-right: .5rem;
+  font-size: 1.25rem;
+}
+
+.my-dropdown .dropdown-menu {
+  --bs-dropdown-padding-x: .25rem;
+  --bs-dropdown-padding-y: .25rem;
+  --bs-dropdown-spacer: 0;
+  --bs-dropdown-bg: var(--my-dropdown-bg);
+  --bs-dropdown-border-color: none;
+  --bs-dropdown-border-radius: var(--bs-border-radius-lg);
+  --bs-dropdown-link-color: var(--my-heading-color);
+  --bs-dropdown-link-hover-color: var(--my-heading-color);
+  --bs-dropdown-link-hover-bg: var(--my-dropdown-link-hover-bg);
+  --bs-dropdown-link-active-color: var(--my-heading-color);
+  --bs-dropdown-link-active-bg: var(--my-dropdown-bg);
+  --bs-dropdown-item-padding-x: 1rem;
+  --bs-dropdown-item-padding-y: .5rem;
+  --bs-dropdown-item-border-radius: var(--bs-border-radius);
+  box-shadow: 0 .25rem 1rem rgba(0, 0, 0, .175);
+}
+
+.my-dropdown .dropdown-item {
     display: flex;
-    align-items: baseline;
+  align-items: center;
+}
+
+.my-dropdown .dropdown-item span {
+  margin-right: 2rem;
+}
+
+.my-dropdown .dropdown-item.active:hover {
+  background-color: var(--my-dropdown-link-hover-bg);
+}
+
+.my-dropdown .dropdown-item:hover:active {
+  background-color: var(--my-dropdown-link-hover-bg);
+}
+
+.my-dropdown .my-dropdown-item-icon {
+  margin-right: .5rem;
+  color: var(--my-alpha-gray-color);
+}
+
+.my-dropdown .my-dropdown-item-check {
+  margin-left: auto;
+  color: transparent;
+}
+
+.my-dropdown .active .my-dropdown-item-check {
+  color: var(--my-heading-color);
+}
+
+.my-btn-primary,
+.my-btn-secondary,
+.my-btn-neutral,
+.my-btn-outline {
+  --bs-btn-padding-x: .85rem;
+  --bs-btn-padding-y: .25rem;
+  --bs-btn-color: #fff;
+  --bs-btn-border-radius: var(--bs-border-radius-lg);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-border-color: transparent;
+}
+
+.my-btn-primary {
+  --bs-btn-bg: var(--my-primary-color);
+  --bs-btn-hover-bg: rgb(255, 70, 160);
+  --bs-btn-focus-shadow-rgb: 255, 105, 180;
+  --bs-btn-active-bg: rgb(230, 60, 140);
+}
+
+.my-btn-secondary {
+  --bs-btn-color: var(--my-primary-color);
+  --bs-btn-bg: rgba(255, 105, 180, .15);
+  --bs-btn-hover-color: var(--my-primary-color);
+  --bs-btn-hover-bg: rgba(255, 105, 180, .2);
+  --bs-btn-focus-shadow-rgb: 255, 105, 180;
+  --bs-btn-active-color: var(--my-primary-color);
+  --bs-btn-active-bg: rgba(255, 105, 180, .25);
+  --bs-btn-active-border-color: transparent;
+}
+
+.my-btn-outline {
+  --bs-btn-color: var(--my-heading-color);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--my-alpha-dark-gray-color);
+  --bs-btn-hover-color: var(--my-heading-color);
+  --bs-btn-hover-bg: var(--my-gray-color);
+  --bs-btn-hover-border-color: var(--my-alpha-dark-gray-color);
+  --bs-btn-focus-shadow-rgb: var(--my-emphasis-focus-shadow-rgb);
+  --bs-btn-active-color: var(--my-heading-color);
+  --bs-btn-active-bg: var(--my-dark-gray-color);
+  --bs-btn-active-border-color: var(--my-alpha-dark-gray-color);
+}
+
+.my-block,
+.my-block-big {
+  border-radius: var(--bs-border-radius-xl);
+  background-color: var(--my-gray-color);
+}
+
+.my-block {
+  padding: 1rem;
+}
+
+.my-block-big {
+  padding: 1.5rem;
+}
+
+.my-text-heading {
+  color: var(--my-heading-color);
+}
+
+.my-text-content {
+  color: var(--my-content-color);
+}
+
+.my-text-primary {
+  color: var(--my-primary-color);
+}
+
+// Статус индикаторы
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+// Флаги стран
+.country-flag {
+  display: inline-block;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  user-select: none;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.status-indicator.status-ok {
+  background-color: #1aad3a;
+}
+
+.status-indicator.status-down {
+  background-color: #ea4e43;
+}
+
+.status-indicator.status-unknow {
+  background-color: #fb3;
+}
+
+// Бейджи статуса
+.status-badge-ok {
+  background-color: rgba(26, 173, 58, 0.15);
+  color: #1aad3a;
+}
+
+.status-badge-down {
+  background-color: rgba(234, 78, 67, 0.15);
+  color: #ea4e43;
+}
+
+.status-badge-unknow {
+  background-color: rgba(255, 187, 51, 0.15);
+  color: #fb3;
+}
+
+// Timeline стили
+.timeline-container {
+  width: 100%;
+}
+
+.timeline {
+  position: relative;
+  height: 40px;
+  padding: 12px 0;
+  overflow: visible;
+}
+
+// Адаптивная высота таймлайна
+@media (max-width: 768px) {
+  .timeline {
+    height: 32px;
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    height: 28px;
+    padding: 6px 0;
+  }
+}
+
+.timeline-graph {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.timeline-segment {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawLine 1.2s ease-out forwards;
+}
+
+// Базовые толщины линий для разных статусов
+.timeline-segment.segment-none {
+  stroke-width: 1;
+}
+
+.timeline-segment.segment-ok {
+  stroke-width: 2.8;
+}
+
+.timeline-segment.segment-down {
+  stroke-width: 2.7;
+}
+
+// Адаптивная толщина линии графика для мобильных
+@media (max-width: 768px) {
+  .timeline-segment.segment-none {
+    stroke-width: 2 !important;
+  }
+  
+  .timeline-segment.segment-ok {
+    stroke-width: 3.3 !important;
+  }
+  
+  .timeline-segment.segment-down {
+    stroke-width: 3.2 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-segment.segment-none {
+    stroke-width: 2.5 !important;
+  }
+  
+  .timeline-segment.segment-ok {
+    stroke-width: 3.8 !important;
+  }
+  
+  .timeline-segment.segment-down {
+    stroke-width: 3.7 !important;
+  }
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.timeline-point {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+// Адаптивные размеры для разных экранов
+@media (max-width: 768px) {
+  .timeline-point {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-point {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+.timeline-point-animate {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.3);
+  animation: timelinePointAppear 0.8s ease-out forwards;
+}
+
+@keyframes timelinePointAppear {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.timeline-point:hover {
+  z-index: 10;
+}
+
+.timeline-point:hover::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pointPing 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.timeline-point.ok:hover::before {
+  background-color: #1aad3a;
+  box-shadow: 0 0 15px rgba(26, 173, 58, 0.4);
+}
+
+.timeline-point.down:hover::before {
+  background-color: #ea4e43;
+  box-shadow: 0 0 15px rgba(234, 78, 67, 0.4);
+}
+
+.timeline-point.none:hover::before {
+  background-color: var(--my-alpha-gray-color);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pointPing {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.3;
+  }
+}
+
+.timeline-point.ok {
+  background-color: #1aad3a;
+}
+
+.timeline-point.down {
+  background-color: #ea4e43;
+}
+
+.timeline-point.none {
+  background-color: var(--my-alpha-gray-color);
+  border: none;
+  box-shadow: none;
+  width: 16px;
+  height: 16px;
+}
+
+// Адаптивные размеры для серых точек
+@media (max-width: 768px) {
+  .timeline-point.none {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline-point.none {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.timeline-point.latest-ok {
+  box-shadow: 0 0 15px rgba(26, 173, 58, 0.6), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-point.latest-down {
+  box-shadow: 0 0 15px rgba(234, 78, 67, 0.6), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-labels {
+  font-size: 0.75rem;
+}
+
+// Статистика
+.stats-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+// Пинг в блоке статистики
+.ping-stats-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+.ping-stats-value {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ping-stats-value:hover {
+  transform: scale(1.05);
+}
+
+.ping-stats-value.ping-excellent {
+  color: #22c55e;
+}
+
+.ping-stats-value.ping-good {
+  color: #16a34a;
+}
+
+.ping-stats-value.ping-ok {
+  color: #f59e0b;
+}
+
+.ping-stats-value.ping-poor {
+  color: #ef4444;
+}
+
+.ping-stats-value.ping-fail {
+  color: #dc2626;
+}
+
+.ping-stats-value.ping-loading {
+  color: var(--my-text-content-color);
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .stats-item {
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
-  .logo {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .navi {
-    font-size: 14px;
-    color: #ffffff;
-    a {
-      margin-left: 20px;
-      transition: color ease 150ms;
-    }
-    a:hover {
-      color: $primary-color;
-    }
+  
+  // На ПК ping-статистика тоже должна быть горизонтальной
+  .ping-stats-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
-#uptime {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin-top: -30px;
-  margin-bottom: 40px;
-  padding: 15px 0;
-  overflow: hidden;
-  .site {
-    border-bottom: 1px solid #e6e7e8;
-    margin: 0 30px;
-    padding: 25px 0;
-    .loading {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cpath fill='%23D6D8D8' d='M19.52 42.712c9.897 2.916 20.285-2.743 23.201-12.64l-3.902-1.15c-2.281 7.742-10.407 12.17-18.15 9.888l-1.15 3.902z'%3E%3CanimateTransform attributeType='xml' attributeName='transform' type='rotate' from='0 25 25' to='360 25 25' dur='0.6s' repeatCount='indefinite'/%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      display: block;
-      margin: 0 auto;
-      width: 40px;
-      height: 40px;
-    }
-    .meta {
-      display: flex;
-      align-items: baseline;
-      .name {
-        font-size: 16px;
-      }
-      .link {
-        background-image: url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1036 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M600.818 697.6c-70.4 0-134.4-25.6-192-76.8-25.6-25.6-25.6-64-6.4-89.6 25.6-25.6 64-25.6 89.6-6.4 57.6 51.2 147.2 51.2 198.4 0l166.4-166.4c25.6-25.6 38.4-64 38.4-102.4 0-25.6-6.4-64-38.4-96-57.6-51.2-147.2-51.2-198.4 0l-64 76.8c-25.6 25.6-64 25.6-89.6 0-25.6-25.6-25.6-64 0-89.6l70.4-70.4c102.4-102.4 268.8-102.4 377.6 0 51.2 51.2 83.2 115.2 83.2 192 0 70.4-25.6 134.4-76.8 192l-166.4 166.4c-57.6 44.8-121.6 70.4-192 70.4z' fill='%238492A6'/%3E%3Cpath d='M274.418 1024c-70.4 0-134.4-25.6-192-76.8-108.8-96-108.8-262.4-6.4-377.6l166.4-166.4c108.8-102.4 275.2-102.4 377.6 0 25.6 25.6 25.6 64 0 89.6s-64 25.6-89.6 0c-51.2-51.2-140.8-51.2-198.4 0l-166.4 166.4c-44.8 51.2-64 140.8 0 198.4 57.6 51.2 147.2 51.2 198.4 0l70.4-70.4c25.6-25.6 64-25.6 89.6 0s25.6 64 0 89.6l-70.4 70.4c-44.8 51.2-108.8 76.8-179.2 76.8z' fill='%238492A6'/%3E%3C/svg%3E");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        width: 13px;
-        height: 13px;
-        text-indent: -99999px;
-        margin-left: 8px;
-        opacity: 0.6;
-        transition: opacity ease 150ms;
-        &:hover {
-          opacity: 1;
-        }
-      }
-      .status {
-        background-position: left center;
-        background-size: 14px auto;
-        background-repeat: no-repeat;
-        padding-left: 20px;
-        margin-left: auto;
-        &.ok {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 2l-8 8-4-4 1.5-1.5L4 7 10.5.5 12 2z' fill='%233bd672'/%3E%3C/svg%3E");
-          color: $primary-color;
-        }
-        &.fail {
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1064 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M205.09 959.373l327.82-327.83 327.827 327.83L981.31 838.79 653.49 510.97l327.82-327.814L860.737 62.58 532.91 390.4 205.09 62.581 84.527 183.155l327.82 327.814-327.82 327.82z' fill='%23DE484A'/%3E%3C/svg%3E");
-          color: #de484a;
-        }
-        &.unknow {
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M521.216 164.864c161.792 0 199.68 149.504 106.496 242.688C523.264 512 441.344 532.48 441.344 749.568h158.72c1.024-123.904 62.464-182.272 125.952-239.616 58.368-53.248 120.832-99.328 120.832-206.848 0-171.008-159.744-292.864-325.632-292.864-187.392 0-344.064 132.096-344.064 316.416h158.72c0-92.16 92.16-161.792 185.344-161.792M441.344 855.04h158.72v158.72h-158.72V855.04z' fill='%23969ea8'/%3E%3C/svg%3E");
-          color: #969ea8;
-        }
-      }
-    }
-    .timeline {
-      display: flex;
-      justify-content: space-between;
-      margin: 15px 0 10px 0;
-      i {
-        flex-grow: 1;
-        margin: 0 1px;
-        height: 25px;
-        border-radius: 5px;
-        transition: opacity ease 150ms;
-        &.ok {
-          background-color: $primary-color;
-        }
-        &.down {
-          background-color: #de484a;
-        }
-        &.none {
-          background-color: #e5e8eb;
-        }
-        &:hover {
-          opacity: 0.6;
-        }
-        &:first-child {
-          margin-left: 0;
-        }
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-    .summary {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      line-height: 15px;
-      color: #9aa2af;
-    }
-    .tooltip {
-      padding: 6px 9px !important;
-      border-radius: 5px !important;
-    }
+// Спиннер
+.my-text-primary .spinner-border {
+  color: var(--my-primary-color);
+}
+
+// Tooltip стили
+.tooltip {
+  font-size: 0.875rem;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  font-family: inherit !important;
+  line-height: 1.4 !important;
+  padding: 8px 12px !important;
+  max-width: 250px !important;
+}
+
+// Стилизация ReactTooltip
+.__react_component_tooltip {
+  border-radius: 8px !important;
+  background-color: var(--bs-dark) !important;
+  color: var(--bs-light) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  font-family: inherit !important;
+  font-size: 0.875rem !important;
+  line-height: 1.4 !important;
+  padding: 8px 12px !important;
+  max-width: 250px !important;
+  opacity: 0.95 !important;
+  z-index: 1000 !important;
+}
+
+.__react_component_tooltip.type-dark {
+  background-color: var(--bs-dark) !important;
+  color: var(--bs-light) !important;
+}
+
+.__react_component_tooltip.type-dark.place-top:after {
+  border-top-color: var(--bs-dark) !important;
+}
+
+.__react_component_tooltip.type-dark.place-bottom:after {
+  border-bottom-color: var(--bs-dark) !important;
+}
+
+.__react_component_tooltip.type-dark.place-left:after {
+  border-left-color: var(--bs-dark) !important;
+}
+
+.__react_component_tooltip.type-dark.place-right:after {
+  border-right-color: var(--bs-dark) !important;
+}
+
+// Поддержка темной темы для tooltip
+[data-bs-theme="dark"] .__react_component_tooltip {
+  background-color: rgba(248, 249, 250, 0.95) !important;
+  color: var(--bs-dark) !important;
+}
+
+[data-bs-theme="dark"] .__react_component_tooltip.type-dark.place-top:after {
+  border-top-color: rgba(248, 249, 250, 0.95) !important;
+}
+
+[data-bs-theme="dark"] .__react_component_tooltip.type-dark.place-bottom:after {
+  border-bottom-color: rgba(248, 249, 250, 0.95) !important;
+}
+
+[data-bs-theme="dark"] .__react_component_tooltip.type-dark.place-left:after {
+  border-left-color: rgba(248, 249, 250, 0.95) !important;
+}
+
+[data-bs-theme="dark"] .__react_component_tooltip.type-dark.place-right:after {
+  border-right-color: rgba(248, 249, 250, 0.95) !important;
+}
+
+// Логотипы для разных тем
+.navbar-brand img {
+  transition: opacity 0.3s ease;
+}
+
+[data-bs-theme='light'] .logo-dark,
+[data-bs-theme='dark'] .logo-light {
+  display: none;
+}
+
+[data-bs-theme='light'] .logo-light,
+[data-bs-theme='dark'] .logo-dark {
+  display: block;
+}
+
+// Переключатель языка
+.my-dropdown-item-lang {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  .my-dropdown-item-check {
+    opacity: 0;
+    transition: opacity 0.2s ease;
   }
-  .site:last-child {
-    border-bottom: none;
+  
+  &.active .my-dropdown-item-check {
+    opacity: 1;
   }
 }
 
-#footer {
-  font-size: 12px;
-  text-align: center;
-  line-height: 25px;
-  color: #969ea8;
-  a {
-    font-weight: bold;
-    color: $primary-color;
+// Адаптивность
+@media (max-width: 768px) {
+  .my-block-big {
+    padding: 1rem;
+  }
+  
+  .timeline {
+    height: 30px;
+  }
+  
+  .navbar-brand img {
+    height: 50px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .my-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .navbar-brand img {
+    height: 70px !important;
   }
 }

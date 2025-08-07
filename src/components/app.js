@@ -1,34 +1,54 @@
-import { useMemo } from 'react';
-import Link from './link';
-import Header from './header';
-import UptimeRobot from './uptimerobot';
-import Package from '../../package.json';
+import { useMemo } from 'react'
+import { LanguageProvider, useLanguage } from '../contexts/LanguageContext'
+import Header from './header'
+import Link from './link'
+import UptimeRobot from './uptimerobot'
 
-function App() {
+const AppContent = () => {
+    const { t } = useLanguage()
+    const apikeys = useMemo(() => {
+        if (!window.Config) {
+            console.error('window.Config не найден. Убедитесь, что config.js загружен.')
+            return []
+        }
+        const { ApiKeys } = window.Config
+        if (Array.isArray(ApiKeys)) return ApiKeys
+        if (typeof ApiKeys === 'string') return [ApiKeys]
+        return []
+    }, [])
 
-  const apikeys = useMemo(() => {
-    const { ApiKeys } = window.Config;
-    if (Array.isArray(ApiKeys)) return ApiKeys;
-    if (typeof ApiKeys === 'string') return [ApiKeys];
-    return [];
-  }, []);
+    return (
+        <>
+            <Header />
+            <div className="container my-container px-3 pb-3">
+                <div className="d-flex flex-wrap align-items-center gap-2 mb-4">
+                    <h4 className="my-text-heading fw-bold me-auto mb-0">{t('serverStatus')}</h4>
+                </div>
 
-  return (
-    <>
-      <Header />
-      <div className='container'>
-        <div id='uptime'>
-          {apikeys.map((key) => (
-            <UptimeRobot key={key} apikey={key} />
-          ))}
-        </div>
-        <div id='footer'>
-          <p>基于 <Link to='https://uptimerobot.com/' text='UptimeRobot' /> 接口制作，检测频率 5 分钟</p>
-          <p>&copy; 2020 <Link to='https://status.org.cn/' text='STATUS.ORG.CN' />, Version {Package.version}</p>
-        </div>
-      </div>
-    </>
-  );
+                <div id="uptime" className="row g-3 mb-5">
+                    {apikeys.map((key, index) => (
+                        <div key={key} className="col-12">
+                            <UptimeRobot apikey={key} pingUrl={window.Config?.PingUrls?.[index]} />
+                        </div>
+                    ))}
+                </div>
+
+                <div className="my-block text-center">
+                    <p className="my-text-content mb-2">
+                        {t('footerText')} <Link to="https://stats.uptimerobot.com/x1NckS5b95" text="UptimeRobot" />
+                    </p>
+                </div>
+            </div>
+        </>
+    )
 }
 
-export default App;
+const App = () => {
+    return (
+        <LanguageProvider>
+            <AppContent />
+        </LanguageProvider>
+    )
+}
+
+export default App
